@@ -42,4 +42,4 @@ jobs:
       uses: Azure/functions-action@v1.4.7
       with:
         app-name: ${{env.AZURE_FUNCTIONAPP_NAME}}
-        publish-profile: 
+        publish-profile: ${{secrets.GithubActionsSecret}}
