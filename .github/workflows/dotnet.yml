@@ -16,7 +16,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      WORKDIR: "TODO"
+      WORKDIR: "./src/HelloWorld"
       CONFIG: "TODO"
       AZURE_FUNCTIONAPP_NAME: "TODO"
     defaults:
