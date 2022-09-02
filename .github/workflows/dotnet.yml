@@ -18,7 +18,7 @@ jobs:
     env:
       WORKDIR: "./src/HelloWorld"
       CONFIG: "TODO"
-      AZURE_FUNCTIONAPP_NAME: "TODO"
+      AZURE_FUNCTIONAPP_NAME: "github-actions-workshop-3"
     defaults:
       run:
         working-directory: ${{env.WORKDIR}}
@@ -41,4 +41,5 @@ jobs:
     - name: Azure Functions Action
       uses: Azure/functions-action@v1.4.7
       with:
-        app-name: github-actions-workshop-3
+        app-name: ${{env.AZURE_FUNCTIONAPP_NAME}}
+        publish-profile: 
