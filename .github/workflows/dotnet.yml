@@ -29,17 +29,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: '6.0'
-
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
+        dotnet-version: 6.0.x
+      
+    - name: Build and Test a project
       uses: rvdhoornCaesar/githubactions-workshop/.github/actions/rbt@main
       with:
         working-directory: ${{env.WORKDIR}}
-        config: ${{env.CONFIG}}    
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+        config: ${{env.CONFIG}}
 
     - name: Azure Functions Action
       uses: Azure/functions-action@v1.4.7
