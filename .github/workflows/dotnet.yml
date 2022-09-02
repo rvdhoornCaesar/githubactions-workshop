@@ -16,8 +16,8 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      WORKDIR: "./src/HelloWorld"
-      CONFIG: "TODO"
+      WORKDIR: ./src/HelloWorld
+      CONFIG: Release
       AZURE_FUNCTIONAPP_NAME: "github-actions-workshop-3"
     defaults:
       run:
@@ -34,7 +34,10 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      uses: rvdhoornCaesar/githubactions-workshop/.github/actions/rbt@main
+      with:
+        working-directory: ${{env.WORKDIR}}
+        config: ${{env.CONFIG}}    
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
@@ -42,4 +45,5 @@ jobs:
       uses: Azure/functions-action@v1.4.7
       with:
         app-name: ${{env.AZURE_FUNCTIONAPP_NAME}}
+        package: ${{env.WORKDIR}}
         publish-profile: ${{secrets.GithubActionsSecret}}
