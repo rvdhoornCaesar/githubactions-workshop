@@ -1,10 +1,16 @@
 name: .NET
 
 on:
- # Configureer triggers voor een push op de main branch
- # Configureer triggers voor een pull request
- # Configureer een trigger voor een handmatige build
-
+# Configureer triggers voor een push op de main branch
+  push:
+    branches:
+      - 'main'
+# Configureer triggers voor een pull request
+  pull_request:
+    types: [opened, reopened]
+# Configureer een trigger voor een handmatige build
+  workflow_dispatch:
+  
 jobs:
   build:
 
@@ -18,11 +24,22 @@ jobs:
         working-directory: ${{env.WORKDIR}}
 
     steps:
-    - name: "Checkout"
-
+    - name: Checkout
+      uses: actions/checkout@v3
     - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0'
 
-    - name: Build and Test a project
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
 
     - name: 'Run Azure Functions Action'
-
+    - name: Azure Functions Action
+      uses: Azure/functions-action@v1.4.7
+      with:
+        app-name: github-actions-workshop-3
