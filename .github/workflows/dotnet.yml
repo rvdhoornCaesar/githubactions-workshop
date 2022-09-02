@@ -38,7 +38,6 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
-    - name: 'Run Azure Functions Action'
     - name: Azure Functions Action
       uses: Azure/functions-action@v1.4.7
       with:
